@@ -1,0 +1,313 @@
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    { 
+        Console.BackgroundColor = ConsoleColor.White;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Black;
+        Random random = new Random();
+
+        string name;
+        Console.WriteLine("Welcome to Brain Burst!");
+        Console.Write("Enter your name:");
+        name = Console.ReadLine();
+        Console.WriteLine("Hi" + " " + name + "! \nPress Enter to play the game...");
+        Console.WriteLine("NOTE: Currency and Unit Symbol is appropriate.");
+       Console.ReadLine();
+       Console.Clear();
+
+        int score = 0;
+
+        while (true)
+        {
+            Console.WriteLine("* * * * * * * * * * * * *");
+            Console.WriteLine("*   Choose an option:   *");
+            Console.WriteLine("*   1. Easy Level       *");
+            Console.WriteLine("*   2. Moderate Level   *");
+            Console.WriteLine("*   3. Hard Level       *");
+            Console.WriteLine("*   4. Exit             *");
+            Console.WriteLine("* * * * * * * * * * * * *");
+            int choice = GetChoice();
+
+            switch (choice)   
+            {
+                case 1:
+                    score += AskEasyQuestions(random);
+                    break;
+                case 2:
+                    score += AskModerateQuestions(random);
+                    break;
+                case 3:
+                    score += AskHardQuestions(random);
+                    break;
+                case 4:
+                    Exit(score);
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice. Please choose again.");
+                    break;
+            }
+        }
+    }
+
+    static int GetChoice()
+    {
+        int choice;
+        while (!int.TryParse(Console.ReadLine(), out choice))
+        {
+            Console.WriteLine("Invalid input. Please enter a number.");
+        }
+        return choice;
+    }
+
+    static int AskEasyQuestions(Random random)
+    {
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Green;
+
+        string[] easyQuestions = {
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat does PEMDAS stand for?\n a) Parenthesis, Equal, Multiplication, Division, Addition, Subtraction\n b) Parenthesis, Equation, Mathematics, Derivatives, Ask, Solve\n c) Parenthesis, Exponents, Multiplication, Division, Addition, and Subtraction",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat is 5 multiplied by 3?\n a) 10\n b) 15\n c) 20",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat is the square root of 25?\n a) 3\n b) 5\n c) 7",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat is the first operation in the PEMDAS order of operations?\n a) Multiplication\n b) Division\n c) Parentheses",
+                "Easy Level: Multiple Choice, Choose the right letter.\nIn the expression 3 + 5 × 2, what operation should be performed first?\n a)  Addition\n b) Multiplication \n c) Division",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat is the result of (4 + 2) × 3?\n a) 18\n b) 24\n c) 36",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhich operation comes after addition in the PEMDAS order?\n a) Subtraction\n b) Multiplication\n c) Division",
+                "Easy Level: Multiple Choice, Choose the right letter.\nIf you have the expression 8 ÷ (2 + 1), what should you do first?\n a) Division\n b)  Addition\n c) Parenthesis",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat is the value of 5 × (2 + 3) - 4 ÷ 2?\n a) 23\n b) 27\n c) 29",
+                "Easy Level: Multiple Choice, Choose the right letter.\nIn the expression 6 × (4 - 2), what operation should be done first?\n a) Multiplication\n b) Subtraction\n c) Division",
+                "Easy Level: Multiple Choice, Choose the right letter.\nIf you have the expression 2 × (3 + 7) ÷ 5, what is the result?\n a) 4\n b) 6\n c) 8",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat does the letter 'E' represent in PEMDAS?\n a) Exponents\n b) Equality\n c) Extrapolation",
+                "Easy Level: Multiple Choice, Choose the right letter.\nSolve 8 + 2 × (6 - 3) ÷ 2.\n a) 11\n b) 12\n c) 13\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nIn the expression 15 ÷ (3 + 2) × 2, what operation should be performed last?\n a) Multiplication\n b) Divison\n c) Addition\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat is the result of 10 ÷ (2 + 3) + 1?\n a) 1\n b) 2\n c) 3\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat is the result of (18 + 15) - 8?\n a) 25\n b) 26\n c) 27\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nWhat is the value of 4² - 3² + 5?\n a) 6\n b) 12\n c) 22\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate:(9 + 3) × 2 − 5.\n a) 19\n b) 24\n c) 29\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nEvaluate: 4 × 3 + 5 − 7\n a) 9\n b) 10\n c) 11\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nSolve: 10 − 2 × (3 + 1)\n a) 2\n b) 25\n c) 5\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: (16 ÷ 4) + 3 × 2.\n a) 8\n b) 9\n c) 10\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: 18 + 2 - 3.\n a) 17\n b) 16\n c) 19\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: 20 - 4 × 2.\n a) 32\n b) 30\n c) 12\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: 3 + 6 ÷ 2.\n a) 6\n b) 4\n c) 7\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: 9 + 1 + 5.\n a) 15\n b) 13\n c) 14\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: 10 ÷ 2 × 8.\n a) 70\n b) 40\n c) 50\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: 6 × 7 ÷ 2.\n a) 84\n b) 21\n c) 82\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: 7 - 5 × 2.\n a) -3\n b) 4\n c) 5\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: 4 + 4 - 3.\n a) 8\n b) 5\n c) 6\n",
+                "Easy Level: Multiple Choice, Choose the right letter.\nCalculate: 22 + 2 ÷ 2.\n a) 23\n b) 22\n c) 12\n"
+        };
+
+        string[] easyAnswers = { "c", "b", "b", "c", "b", "a", "a", "b", "a", "b", "a", "a" , "a", "b", "c", "a", "b", "a", "b", "a", "c", "a", "c", "a", "a", "b", "b", "a", "b", "a" };
+
+        int[] easyQuestionOrder = Enumerable.Range(0, easyQuestions.Length).OrderBy(x => random.Next()).ToArray();
+        int questionScore = 0;
+
+        for (int i = 0; i < easyQuestions.Length; i++)
+        {
+            int index = easyQuestionOrder[i];
+            Console.WriteLine($"\n✮ Question {i + 1}: {easyQuestions[index]}");
+
+            Console.Write("·:*¨༺ Your Answer ༻¨*:· ");
+            string userAnswer = Console.ReadLine().ToLower();
+
+            if (userAnswer == easyAnswers[index])
+            {
+                Console.WriteLine("Correct!\n");
+                questionScore++;
+            }
+            else
+            {
+                Console.WriteLine($"Incorrect. The correct answer is: {easyAnswers[index]}\n");
+                Console.WriteLine($"Press Enter to continue...");
+            }
+
+            Console.ReadLine();
+            Console.Clear();
+        }
+   return questionScore;
+    }
+
+    static int AskModerateQuestions(Random random)
+    {
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Blue;
+
+        string[] moderateQuestions = {
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 27x + 7 when x=2",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 110 - 2(30)",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 7x + 5(2) when x=54",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 85(3) + 50",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: (x + 2)(56) when x=54",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 15^2",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 5^2 * (4)",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 408 + 50",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 54x * 5x(24) when x=7",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 34x + 5(35) when x=9",
+            "Moderate Level: Identification, Input the right answer.\n What is the value of 7! (factorial)?",
+            "Moderate Level: Identification, Input the right answer.\n What is the square root of 144?",
+            "Moderate Level: Identification, Input the right answer.\n What is the next number in the sequence: 2, 6, 12, 20, ...?",
+            "Moderate Level: Identification, Input the right answer.\n What is the value of 2 to the power of 10?",
+            "Moderate Level: Identification, Input the right answer.\n If the area of a circle is 64π square units, what is its radius?",
+            "Moderate Level: Identification, Input the right answer.\n What is the value of 5² + 3³ - 2⁴?",
+            "Moderate Level: Identification, Input the right answer.\n In a triangle, if two angles are 45 degrees each, what is the measure of the third angle?",
+            "Moderate Level: Identification, Input the right answer.\n What is the value of 2⁶ - 2⁴ + 2²?",
+            "Moderate Level: Identification, Input the right answer.\n What is the value of 3⁴ + 4³ - 5²?",
+            "Moderate Level: Identification, Input the right answer.\n What is the value of 2³ × 5²?",
+            "Moderate Level: Identification, Input the right answer.\n If a = 5 and b = 3, what is the value of a² + 2ab + b²?",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 3! (factorial)",
+            "Moderate Level: Identification, Input the right answer.\n What is the value of log₂(16)?",
+            "Moderate Level: Identification, Input the right answer.\n What is the value of log₁₀(1000)?",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: 4² ÷ 2³",
+            "Moderate Level: Identification, Input the right answer.\n In a town, there are 500 cars. If each car has 4 tires, how many tires are there in total?",
+            "Moderate Level: Identification, Input the right answer.\n Simplify: 7^2 - 6^2 + 5^2",
+            "Moderate Level: Identification, Input the right answer.\n Find the value of 4 times 3^2 - 2 times 3^2",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: (8 + 2)^2 - 5^2",
+            "Moderate Level: Identification, Input the right answer.\n Simplify: 6^3 - 4^3 + 2^3",
+            "Moderate Level: Identification, Input the right answer.\n Find the result of (10 - 3) times 4^2",
+            "Moderate Level: Identification, Input the right answer.\n Calculate: 9^2 - 7 times 4 + 3^2",
+            "Moderate Level: Identification, Input the right answer.\n Determine the value of 2 times (5^2) + 3 times (5 - 2)",
+            "Moderate Level: Identification, Input the right answer.\n Evaluate: (6 + 2)^2 - 2^3",
+            "Moderate Level: Identification, Input the right answer.\n Find the result of 12 times 3 - 5^2 + 2"
+        };
+
+         int[] moderateAnswers = { 61, 50, 379, 305, 3136, 225, 100, 458, 5292, 404, 5040, 12, 30, 1024, 8, 36, 90, 52, 120, 200, 64, 6, 4, 3, 2, 2000, 38, 18, 75, 160, 112, 62, 59, 56, 13 };
+
+        int[] moderateQuestionOrder = Enumerable.Range(0, moderateQuestions.Length).OrderBy(x => random.Next()).ToArray();
+        int questionScore = 0;
+
+        for (int i = 0; i < moderateQuestions.Length; i++)
+        {
+            int index = moderateQuestionOrder[i];
+            Console.WriteLine($"\n✮ Question {i + 1}: {moderateQuestions[index]}");
+
+            Console.Write("·:*¨༺ Your Answer ༻¨*:· ");
+            if (int.TryParse(Console.ReadLine(), out int userAnswer))
+        {
+            if (userAnswer == moderateAnswers[index])
+            {
+                Console.WriteLine("Correct!\n");
+                questionScore++;
+            }
+            else
+            {
+                Console.WriteLine($"Incorrect. The correct answer is: {moderateAnswers[index]}\n");
+                    Console.WriteLine($"Press Enter to continue...");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter a numeric value.\n");
+        }
+
+        Console.ReadLine();
+        Console.Clear();
+    }
+        return questionScore;
+}
+
+
+    static int AskHardQuestions(Random random)
+    {
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+
+        string[] hardQuestions = {
+            "Hard Level: Word Problem, Input the right answer.\n Jeremy helped his mom for 1 hour. For how many minutes was he helping her?", 
+            "Hard Level: Word Problem, Input the right answer.\n Rebecca left her dad’s store to go home at twenty to seven in the evening. Forty minutes later, she was home. What time was it when she arrived home?", 
+            "Hard Level: Word Problem, Input the right answer.\n If you wake up at 7:00 a.m. and it takes you 1 hour and 30 minutes to get ready and walk to school, at what time will you get to school?", 
+            "Hard Level: Word Problem, Input the right answer.\n Thomas and Matthew are saving up money to buy a video game together. Thomas has saved $30. Matthew has saved $35. How much money have they saved up together in total?", 
+            "Hard Level: Word Problem, Input the right answer.\n You went to the store with $5.50. You bought gum for $1.25, a chocolate bar for $1.15 and a sucker for $0.50. How much money do you have left?", 
+            "Hard Level: Word Problem, Input the right answer.\n You went to the store and bought gum for $1.25 and a sucker for $0.50. How much was your total?",
+            "Hard Level: Word Problem, Input the right answer.\n Robert spent $184.59 to buy 3 hockey sticks. If each hockey stick was the same price, how much did 1 cost?", 
+            "Hard Level: Word Problem, Input the right answer.\n Tim gets $5 for delivering the paper. How much money will he have after delivering the paper 3 times?", 
+            "Hard Level: Word Problem, Input the right answer.\n Micha’s dad wants to try to save money on gas, so he has been tracking how much he uses. Over the past two years, Micha’s dad used 200 litres of gas. This year, he used 100 litres of gas. How much gas did he use last year?",
+            "Hard Level: Word Problem, Input the right answer.\n Cassandra’s ruler is 22 centimetres long. April’s ruler is 30 centimetres long. How many centimetres longer is April’s ruler?", 
+            "Hard Level: Word Problem, Input the right answer.\n Kiera wants to make sure she has strong bones, so she drinks 2 litres of milk every week. After 3 weeks, how many litres of milk will Kiera drink?", 
+            "Hard Level: Word Problem, Input the right answer.\n A bus leaves the school to take students on a field trip. The bus travels 10 kilometres south, 10 kilometres west, another 5 kilometres south and 15 kilometres north. To return to the school, in which direction does the bus have to travel? How many kilometres must it travel in that direction?", 
+            "Hard Level: Word Problem, Input the right answer.\n Stacy and Milda are comparing their heights. Stacy is 1.5 meters tall. Milda is 10 centimetres taller than Stacy. What is Milda’s height in centimetres?",  
+            "Hard Level: Word Problem, Input the right answer.\n The ratio of Jenny’s trophies to Meredith’s trophies is 7:4. Jenny has 28 trophies. How many does Meredith have?", 
+            "Hard Level: Word Problem, Input the right answer.\n the school’s junior band has 10 saxophone players and 20 trumpet players. The school’s senior band has 18 saxophone players and 29 trumpet players. Which band has the higher ratio of trumpet to saxophone players?", 
+            "Hard Level: Word Problem, Input the right answer.\n Mary surveyed students in her school to find out what their favourite sports were. Out of 1,200 students, 455 said hockey was their favourite sport. What percentage of students said hockey was their favourite sport?", 
+            "Hard Level: Word Problem, Input the right answer.\n Maurita and Felice each take 4 tests. Here are the results of Maurita’s 4 tests: 4, 4, 4, 4. Here are the results for 3 of Felice’s 4 tests: 3, 3, 3. If Maurita’s mean for the 4 tests is 1 point higher than Felice’s, what’s the score of Felice’s 4th test?",
+            "Hard Level: Word Problem, Input the right answer.\n The numbers 1 to 50 are in a hat. If the probability of drawing an even number is 25/50, what is the probability of NOT drawing an even number? Express this probability as a fraction.",
+            "Hard Level: Word Problem, Input the right answer.\n John wants to know his class’s favourite TV show, so he surveys all of the boys. Will the sample be representative or biased?", 
+            "Hard Level: Word Problem, Input the right answer.\n Skylar lives on a farm, where his dad keeps a circular corn maze. The corn maze has a diameter of 2 kilometres. What is the maze’s radius?", 
+            "Hard Level: Word Problem, Input the right answer.\n A right triangle has one non-hypotenuse side length of 3 inches and the hypotenuse measures 5 inches. What is the length of the other non-hypotenuse side?", 
+            "Hard Level: Word Problem, Input the right answer.\n What is the area of a triangle with a base of 2 units and a height of 3 units?",
+            "Hard Level: Word Problem, Input the right answer.\n What is the smallest prime number?",
+            "Hard Level: Word Problem, Input the right answer.\n John is 4 years older than twice the age of Mary. If Mary is 10 years old, how old is John?",
+            "Hard Level: Word Problem, Input the right answer.\n The average of five numbers is 18. If four of the numbers are 15, 20, 22, and 17, what is the fifth number?",
+            "Hard Level: Word Problem, Input the right answer.\n A right-angled triangle has a base of 10 cm and a height of 12 cm. What is the length of the hypotenuse?",
+            "Hard Level: Word Problem, Input the right answer.\n The sum of three consecutive integers is 72. What are the integers?",
+            "Hard Level: Word Problem, Input the right answer.\n The ratio of the number of boys to girls in a class is 3:5. If there are 24 students in the class, how many are boys?",
+            "Hard Level: Word Problem, Input the right answer.\n A car travels at a speed of 60 km/h. How long does it take to travel 120 km?",
+            "Hard Level: Word Problem, Input the right answer.\n The sum of two consecutive odd numbers is 44. What are the numbers?",
+            "Hard Level: Word Problem, Input the right answer.\n If a shirt originally costs $40 and is now on sale for 20% off, what is the sale price?",
+            "Hard Level: Word Problem, Input the right answer.\n The product of two consecutive even numbers is 168. What are the numbers?",
+            "Hard Level: Word Problem, Input the right answer.\n The perimeter of a square is 36 cm. What is the length of one side?",
+            "Hard Level: Word Problem, Input the right answer.\n The sum of three consecutive odd numbers is 75. What are the three numbers?",
+            "Hard Level: Word Problem, Input the right answer.\n A box contains 3 red balls, 4 green balls, and 5 blue balls. If one ball is drawn at random, what is the probability of getting a green ball?",
+
+        };
+
+        string[] hardAnswers = { "60 minutes", "6:20 PM", "8:30 AM", "$65", "$2.55", "$1.75", "$61.53", "$15", "100L", "8 cm", "6L", "North, 10 km", "155 cm", "16 trophies", "Senior band", "37.92%",
+        "2", "1/2", "Biased", "1 km", "4 inches", "3 square units", "2", "24", "16", "14cm", "23, 24, 25", "9", "2 hours", "21, 23", "$32", "12, 14", "9cm", "23, 25, 27", "1/3"};
+
+
+        int[] hardQuestionOrder = Enumerable.Range(0, hardQuestions.Length).OrderBy(x => random.Next()).ToArray();
+        int questionScore = 0;
+
+        for (int i = 0; i < hardQuestions.Length; i++)
+        {
+            int index = hardQuestionOrder[i];
+            Console.WriteLine($"\n✮ Question {i + 1}: {hardQuestions[index]}");
+
+            Console.Write("·:*¨༺ Your Answer ༻¨*:· ");
+            string userAnswer = Console.ReadLine().ToLower();
+
+            if (userAnswer == hardAnswers[index])
+            {
+                Console.WriteLine("Correct!\n");
+                questionScore++;
+            }
+            else
+            {
+                Console.WriteLine($"Incorrect. The correct answer is: {hardAnswers[index]}\n");
+                    Console.WriteLine($"Press Enter to continue...");
+            }
+
+            Console.ReadLine();
+            Console.Clear();
+        }
+
+        return questionScore;
+    }
+
+    static void Exit(int finalScore)
+    {
+        Console.BackgroundColor = ConsoleColor.White;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"Exiting the program. Thank you for playing! Your final score: {finalScore}");
+    
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("    ***   ***    ");
+        Console.WriteLine("  ***** ******  ");
+        Console.WriteLine("  *************  ");
+        Console.WriteLine("   ***********   ");
+        Console.WriteLine("    *********    ");
+        Console.WriteLine("      ******     ");
+        Console.WriteLine("       ****       ");
+        Console.WriteLine("        **        ");
+        Console.WriteLine();
+        Console.WriteLine(" Thank You For Playing");
+        Console.ResetColor(); 
+    }
+}
